@@ -15,7 +15,7 @@ class EpisodeDto with _$EpisodeDto {
     required String episode,
     required List<String> characters,
     required String url,
-    required DateTime created,
+    required String created,
   }) = _EpisodeDto;
 
   const EpisodeDto._();
@@ -29,9 +29,8 @@ class EpisodeDto with _$EpisodeDto {
       name: name,
       airDate: airDate,
       episode: episode,
-      characters: null,
       url: url,
-      created: created,
+      created: DateTime.parse(created),
     );
   }
 }

@@ -23,36 +23,54 @@ class CharactersRepository implements ICharactersRepository {
     required int page,
   }) async {
     final characters = <Character>[];
-    LocationDto? locationDto;
-    LocationDto? originDto;
-    final episodes = <EpisodeDto>[];
 
     try {
       final charactersDto = await _charactersService.getCharacters(page: page);
       for (final characterDto in charactersDto) {
-        for (final episodeUrl in characterDto.episode) {
-          try {
-            final episode = await _charactersService.getEpisode(
-              episodeId: episodeUrl.substring(episodeUrl.lastIndexOf('/') + 1),
-            );
+        final episodes = <EpisodeDto>[];
+        final episodesId = <String>[];
+        LocationDto? locationDto;
+        LocationDto? originDto;
 
-            episodes.add(episode);
-          } catch (e) {
-            continue;
-          }
+        for (final episodeUrl in characterDto.episode) {
+          episodesId.add(episodeUrl.substring(episodeUrl.lastIndexOf('/') + 1));
         }
+
+        if (episodesId.isNotEmpty) {
+          episodes.addAll(
+            await _charactersService.getEpisodes(episodesId: episodesId),
+          );
+        }
+        final locationIds = <String>[];
+        var locationExists = false;
+        var originExists = false;
         if (characterDto.location['url']!.isNotEmpty) {
-          locationDto = await _charactersService.getLocation(
-            locationUrl: characterDto.location['url']!
+          locationIds.add(
+            characterDto.location['url']!
                 .substring(characterDto.location['url']!.lastIndexOf('/') + 1),
           );
+          locationExists = true;
         }
         if (characterDto.origin['url']!.isNotEmpty) {
-          originDto = await _charactersService.getLocation(
-            locationUrl: characterDto.origin['url']!
+          locationIds.add(
+            characterDto.origin['url']!
                 .substring(characterDto.origin['url']!.lastIndexOf('/') + 1),
           );
+          originExists = true;
         }
+
+        if (locationIds.isNotEmpty) {
+          final locations = await _charactersService.getLocations(
+            locationIds: locationIds,
+          );
+          if (locationExists) {
+            locationDto = locations.first;
+          }
+          if (originExists) {
+            originDto = locations.last;
+          }
+        }
+
         characters.add(
           characterDto.toModel(
             episodes: episodes,
@@ -60,7 +78,6 @@ class CharactersRepository implements ICharactersRepository {
             origin: originDto,
           ),
         );
-        episodes.clear();
       }
 
       return Right(characters);

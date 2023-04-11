@@ -20,7 +20,7 @@ class CharacterDto with _$CharacterDto {
     required String image,
     required List<String> episode,
     required String url,
-    required DateTime created,
+    required String created,
   }) = _CharacterDto;
 
   const CharacterDto._();
@@ -45,7 +45,7 @@ class CharacterDto with _$CharacterDto {
       image: image,
       episode: episodes.map((e) => e.toModel()).toList(),
       url: url,
-      created: created,
+      created: DateTime.parse(created),
     );
   }
 }

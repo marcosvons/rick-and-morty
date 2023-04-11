@@ -26,7 +26,7 @@ mixin _$LocationDto {
   String get dimension => throw _privateConstructorUsedError;
   List<String> get residents => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
-  DateTime get created => throw _privateConstructorUsedError;
+  String get created => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +47,7 @@ abstract class $LocationDtoCopyWith<$Res> {
       String dimension,
       List<String> residents,
       String url,
-      DateTime created});
+      String created});
 }
 
 /// @nodoc
@@ -99,7 +99,7 @@ class _$LocationDtoCopyWithImpl<$Res, $Val extends LocationDto>
       created: null == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ) as $Val);
   }
 }
@@ -119,7 +119,7 @@ abstract class _$$_LocationDtoCopyWith<$Res>
       String dimension,
       List<String> residents,
       String url,
-      DateTime created});
+      String created});
 }
 
 /// @nodoc
@@ -169,7 +169,7 @@ class __$$_LocationDtoCopyWithImpl<$Res>
       created: null == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ));
   }
 }
@@ -209,7 +209,7 @@ class _$_LocationDto extends _LocationDto {
   @override
   final String url;
   @override
-  final DateTime created;
+  final String created;
 
   @override
   String toString() {
@@ -259,7 +259,7 @@ abstract class _LocationDto extends LocationDto {
       required final String dimension,
       required final List<String> residents,
       required final String url,
-      required final DateTime created}) = _$_LocationDto;
+      required final String created}) = _$_LocationDto;
   const _LocationDto._() : super._();
 
   factory _LocationDto.fromJson(Map<String, dynamic> json) =
@@ -278,7 +278,7 @@ abstract class _LocationDto extends LocationDto {
   @override
   String get url;
   @override
-  DateTime get created;
+  String get created;
   @override
   @JsonKey(ignore: true)
   _$$_LocationDtoCopyWith<_$_LocationDto> get copyWith =>

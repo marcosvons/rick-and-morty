@@ -15,7 +15,7 @@ class LocationDto with _$LocationDto {
     required String dimension,
     required List<String> residents,
     required String url,
-    required DateTime created,
+    required String created,
   }) = _LocationDto;
 
   const LocationDto._();
@@ -30,7 +30,7 @@ class LocationDto with _$LocationDto {
       type: type,
       dimension: dimension,
       url: url,
-      created: created,
+      created: DateTime.parse(created),
     );
   }
 }

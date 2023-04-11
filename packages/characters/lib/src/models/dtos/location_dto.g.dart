@@ -15,7 +15,7 @@ _$_LocationDto _$$_LocationDtoFromJson(Map<String, dynamic> json) =>
       residents:
           (json['residents'] as List<dynamic>).map((e) => e as String).toList(),
       url: json['url'] as String,
-      created: DateTime.parse(json['created'] as String),
+      created: json['created'] as String,
     );
 
 Map<String, dynamic> _$$_LocationDtoToJson(_$_LocationDto instance) =>
@@ -26,5 +26,5 @@ Map<String, dynamic> _$$_LocationDtoToJson(_$_LocationDto instance) =>
       'dimension': instance.dimension,
       'residents': instance.residents,
       'url': instance.url,
-      'created': instance.created.toIso8601String(),
+      'created': instance.created,
     };

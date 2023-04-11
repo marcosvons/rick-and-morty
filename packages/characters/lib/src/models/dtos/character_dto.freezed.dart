@@ -31,7 +31,7 @@ mixin _$CharacterDto {
   String get image => throw _privateConstructorUsedError;
   List<String> get episode => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
-  DateTime get created => throw _privateConstructorUsedError;
+  String get created => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +57,7 @@ abstract class $CharacterDtoCopyWith<$Res> {
       String image,
       List<String> episode,
       String url,
-      DateTime created});
+      String created});
 }
 
 /// @nodoc
@@ -134,7 +134,7 @@ class _$CharacterDtoCopyWithImpl<$Res, $Val extends CharacterDto>
       created: null == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ) as $Val);
   }
 }
@@ -159,7 +159,7 @@ abstract class _$$_CharacterDtoCopyWith<$Res>
       String image,
       List<String> episode,
       String url,
-      DateTime created});
+      String created});
 }
 
 /// @nodoc
@@ -234,7 +234,7 @@ class __$$_CharacterDtoCopyWithImpl<$Res>
       created: null == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ));
   }
 }
@@ -301,7 +301,7 @@ class _$_CharacterDto extends _CharacterDto {
   @override
   final String url;
   @override
-  final DateTime created;
+  final String created;
 
   @override
   String toString() {
@@ -371,7 +371,7 @@ abstract class _CharacterDto extends CharacterDto {
       required final String image,
       required final List<String> episode,
       required final String url,
-      required final DateTime created}) = _$_CharacterDto;
+      required final String created}) = _$_CharacterDto;
   const _CharacterDto._() : super._();
 
   factory _CharacterDto.fromJson(Map<String, dynamic> json) =
@@ -400,7 +400,7 @@ abstract class _CharacterDto extends CharacterDto {
   @override
   String get url;
   @override
-  DateTime get created;
+  String get created;
   @override
   @JsonKey(ignore: true)
   _$$_CharacterDtoCopyWith<_$_CharacterDto> get copyWith =>

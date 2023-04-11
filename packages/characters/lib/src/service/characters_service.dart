@@ -1,4 +1,6 @@
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, prefer_single_quotes
+
+import 'dart:convert';
 
 import 'package:characters_package/characters.dart';
 import 'package:core/core.dart';
@@ -7,37 +9,36 @@ import 'package:dio/dio.dart';
 
 abstract class ICharactersService {
   Future<List<CharacterDto>> getCharacters({required int page});
-  Future<LocationDto> getLocation({required String locationUrl});
-  Future<EpisodeDto> getEpisode({required String episodeId});
+  Future<List<LocationDto>> getLocations({required List<String> locationIds});
+  Future<List<EpisodeDto>> getEpisodes({required List<String> episodesId});
   Future<Unit> setCharacterAsFavorite({required Character character});
   Future<Unit> removeCharacterFromFavorites({required int characterId});
 }
 
 class CharactersService implements ICharactersService {
-  CharactersService({required Dio dio}) : _dio = dio;
+  CharactersService({
+    required Dio dio,
+  }) : _dio = dio;
 
   final Dio _dio;
 
   @override
   Future<List<CharacterDto>> getCharacters({int page = 1}) async {
-    final Response<Map<String, dynamic>> response;
+    Response response;
 
     try {
       response = await _dio.get(
-        'character/?page=$page',
+        "character/?page=$page",
       );
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.response) {
-        throw ConnectionErrorException();
-      } else if (e.type == DioErrorType.connectTimeout) {
-        throw TimeoutException();
-      } else {
-        throw UnknownNetworkException();
-      }
+    } on DioError {
+      throw ConnectionErrorException();
+    } catch (e) {
+      throw UnknownNetworkException();
     }
 
     try {
-      final responseData = response.data as Map<String, dynamic>;
+      final responseData =
+          jsonDecode(response.data as String) as Map<String, dynamic>;
       final charactersDto = (responseData['results'] as List)
           .map(
             (dynamic character) =>
@@ -63,57 +64,72 @@ class CharactersService implements ICharactersService {
   }
 
   @override
-  Future<EpisodeDto> getEpisode({required String episodeId}) async {
-    Response<Map<String, dynamic>> response;
+  Future<List<EpisodeDto>> getEpisodes({
+    required List<String> episodesId,
+  }) async {
+    Response response;
 
     try {
-      final url = '${_dio.options.baseUrl}episode/$episodeId';
       response = await _dio.get(
-        'episode/$episodeId',
+        "episode/${episodesId.join(',')}",
       );
     } on DioError catch (e) {
-      if (e.type == DioErrorType.response) {
-        throw ConnectionErrorException();
-      } else if (e.type == DioErrorType.connectTimeout) {
-        throw TimeoutException();
-      } else {
-        print(e);
-        throw UnknownNetworkException();
-      }
+      print(e);
+      throw ConnectionErrorException();
+    } catch (e) {
+      throw UnknownNetworkException();
     }
 
     try {
-      final episodeDto =
-          EpisodeDto.fromJson(response.data as Map<String, dynamic>);
-
-      return episodeDto;
+      final responseData = jsonDecode(response.data as String);
+      if (episodesId.length == 1) {
+        return [EpisodeDto.fromJson(responseData as Map<String, dynamic>)];
+      }
+      final episodesDto = (responseData as List<dynamic>)
+          .map(
+            (dynamic episode) =>
+                EpisodeDto.fromJson(episode as Map<String, dynamic>),
+          )
+          .toList();
+      return episodesDto;
     } catch (e) {
       throw JsonDeserializationException();
     }
   }
 
   @override
-  Future<LocationDto> getLocation({required String locationUrl}) async {
+  Future<List<LocationDto>> getLocations({
+    required List<String> locationIds,
+  }) async {
     Response response;
 
     try {
       response = await _dio.get(
-        'location/$locationUrl',
+        "location/${locationIds.join(",")}",
       );
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.response) {
-        throw ConnectionErrorException();
-      } else if (e.type == DioErrorType.connectTimeout) {
-        throw TimeoutException();
-      } else {
-        throw UnknownNetworkException();
-      }
+    } on DioError {
+      throw ConnectionErrorException();
+    } catch (e) {
+      throw UnknownNetworkException();
     }
 
     try {
-      final locationDto =
-          LocationDto.fromJson(response.data as Map<String, dynamic>);
-      return locationDto;
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.data as String);
+        if (locationIds.length == 1) {
+          return [LocationDto.fromJson(responseData as Map<String, dynamic>)];
+        } else {
+          final locationsDto = (responseData as List<dynamic>)
+              .map(
+                (dynamic location) =>
+                    LocationDto.fromJson(location as Map<String, dynamic>),
+              )
+              .toList();
+          return locationsDto;
+        }
+      } else {
+        return <LocationDto>[];
+      }
     } catch (e) {
       throw JsonDeserializationException();
     }

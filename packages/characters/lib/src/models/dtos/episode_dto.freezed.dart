@@ -27,7 +27,7 @@ mixin _$EpisodeDto {
   String get episode => throw _privateConstructorUsedError;
   List<String> get characters => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
-  DateTime get created => throw _privateConstructorUsedError;
+  String get created => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +48,7 @@ abstract class $EpisodeDtoCopyWith<$Res> {
       String episode,
       List<String> characters,
       String url,
-      DateTime created});
+      String created});
 }
 
 /// @nodoc
@@ -100,7 +100,7 @@ class _$EpisodeDtoCopyWithImpl<$Res, $Val extends EpisodeDto>
       created: null == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ) as $Val);
   }
 }
@@ -120,7 +120,7 @@ abstract class _$$_EpisodeDtoCopyWith<$Res>
       String episode,
       List<String> characters,
       String url,
-      DateTime created});
+      String created});
 }
 
 /// @nodoc
@@ -170,7 +170,7 @@ class __$$_EpisodeDtoCopyWithImpl<$Res>
       created: null == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
     ));
   }
 }
@@ -211,7 +211,7 @@ class _$_EpisodeDto extends _EpisodeDto {
   @override
   final String url;
   @override
-  final DateTime created;
+  final String created;
 
   @override
   String toString() {
@@ -260,7 +260,7 @@ abstract class _EpisodeDto extends EpisodeDto {
       required final String episode,
       required final List<String> characters,
       required final String url,
-      required final DateTime created}) = _$_EpisodeDto;
+      required final String created}) = _$_EpisodeDto;
   const _EpisodeDto._() : super._();
 
   factory _EpisodeDto.fromJson(Map<String, dynamic> json) =
@@ -280,7 +280,7 @@ abstract class _EpisodeDto extends EpisodeDto {
   @override
   String get url;
   @override
-  DateTime get created;
+  String get created;
   @override
   @JsonKey(ignore: true)
   _$$_EpisodeDtoCopyWith<_$_EpisodeDto> get copyWith =>

@@ -16,7 +16,7 @@ _$_EpisodeDto _$$_EpisodeDtoFromJson(Map<String, dynamic> json) =>
           .map((e) => e as String)
           .toList(),
       url: json['url'] as String,
-      created: DateTime.parse(json['created'] as String),
+      created: json['created'] as String,
     );
 
 Map<String, dynamic> _$$_EpisodeDtoToJson(_$_EpisodeDto instance) =>
@@ -27,5 +27,5 @@ Map<String, dynamic> _$$_EpisodeDtoToJson(_$_EpisodeDto instance) =>
       'episode': instance.episode,
       'characters': instance.characters,
       'url': instance.url,
-      'created': instance.created.toIso8601String(),
+      'created': instance.created,
     };
