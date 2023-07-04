@@ -1,7 +1,63 @@
 {
     "@@locale": "en",
-    "login": "Login",
+    "login": "Log In",
     "@login": {
         "description": "Text shown in the Login Page above TextInput"
+    },
+    "email": "Email",
+    "@email": {
+        "description": "Text shown in the TextFormField from the Login page"
+    },
+    "invalidEmail": "Invalid Email",
+    "@invalidEmail": {
+        "description": "Text shown in the TextFormField when the email is invalid"
+    },
+    "emptyEmail": "Email cannot be empty",
+    "@emptyEmail": {
+        "description": "Text shown in the TextFormField when the email is empty"
+    },
+    "password": "Password",
+    "@password": {
+        "description": "Text shown in the TextFormField from the Login page"
+    },
+    "invalidPassword": "Invalid password - Password must contain at least 8 characters, including UPPER/lowercase, numbers and special characters",
+    "@invalidPassword": {
+        "description": "Text shown in the TextFormField when the password is invalid"
+    },
+    "emptyPassword": "Password cannot be empty",
+    "@emptyPassword": {
+        "description": "Text shown in the TextFormField when the Password is empty"
+    },
+    "userNotFoundError": "User not found",
+    "@userNotFoundError": {
+        "description": "Text shown when the user is not found"
+    },
+    "invalidCredentialsError": "Invalid credentials",
+    "@invalidCredentialsError": {
+        "description": "Text shown when the credentials are invalid"
+    },
+    "unknownError": "Something went wrong",
+    "@unknownError": {
+        "description": "Text shown when an unknown error occurs"
+    },
+    "createAccount": "Don't have an account? ",
+    "@createAccount": {
+        "description": "Text shown in the Login Page to Sign Up"
+    },
+    "signUp": "Sign Up!",
+    "@signUp": {
+        "description": "Text shown in the Login Page to Sign Up"
+    },
+    "emailAlreadyExistsError": "This email is already in use",
+    "@emailAlreadyExistsError": {
+        "description": "Text shown when the email already exists"
+    },
+    "alreadyHaveAnAccount": "Already have an account? ",
+    "@alreadyHaveAnAccount": {
+        "description": "Text shown in the Sign Up Page to Login"
+    },
+    "logIn": "Log In",
+    "@logIn": {
+        "description": "Text shown in the Sign Up Page to Login"
     }
 }

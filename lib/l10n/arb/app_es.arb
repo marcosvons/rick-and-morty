@@ -1,7 +1,63 @@
 {
     "@@locale": "es",
-   "login": "Login",
+   "login": "Iniciar sesión",
     "@login": {
         "description": "Texto mostrado en la Login Page arriba del TextInput"
+    },
+    "email": "Email",
+    "@email": {
+        "description": "Texto mostrado en el TextFormField de Login, parte Email"
+    },
+    "invalidEmail": "Email invalido",
+    "@invalidEmail": {
+        "description": "Texto mostrado en el  TextFormField cuando el email es invalido"
+    },
+     "emptyEmail": "El email no puede ser vacio",
+    "@emptyEmail": {
+        "description": "Texto mostrado en el TextFormField cuando el email es vacío"
+    },
+     "password": "Contraseña",
+    "@password": {
+        "description": "Texto mostrado en el TextFormField de Login, parte Password"
+    },
+    "invalidPassword": "Contraseña invalida - Debe contener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial",
+    "@invalidPassword": {
+        "description": "Texto mostrado en el  TextFormField cuando el email es invalido"
+    },
+     "emptyPassword": "La contraseña no puede ser vacía",
+    "@emptyPassword": {
+        "description": "Texto mostrado en el TextFormField cuando el Password es vacío"
+    },
+    "userNotFoundError": "Usuario no encontrado",
+    "@userNotFoundError": {
+        "description": "Texto mostrado en el SnackBar cuando el email no es encontrado"
+    },
+    "invalidCredentialsError": "Credenciales invalidas",
+    "@invalidCredentialsError": {
+        "description": "Texto mostrado en el SnackBar cuando las credenciales son invalidas"
+    },
+    "unknownError": "Algo salio mal",
+    "@unknownError": {
+        "description": "Texto mostrado en el SnackBar cuando falla la autenticación"
+    },
+    "createAccount": "¿Aun no tienes cuenta? ",
+    "@createAccount": {
+        "description": "Texto mostrado en la Login Page para crear cuenta"
+    },
+    "signUp": "Registrate",
+    "@signUp": {
+        "description": "Texto mostrado en la Login Page para crear cuenta"
+    },
+    "emailAlreadyExistsError" : "El email ya existe",
+    "@emailAlreadyExistsError" : {
+        "description": "Texto mostrado en el SnackBar cuando el email ya existe"
+    },
+    "alreadyHaveAnAccount": "¿Ya tienes cuenta? ",
+    "@alreadyHaveAnAccount": {
+        "description": "Texto mostrado en la SignUp Page para loguearse en una cuenta"
+    },
+    "logIn": "Inicia sesión",
+    "@logIn": {
+        "description": "Texto mostrado en la SignUp Page para loguearse en una cuenta"
     }
 }
