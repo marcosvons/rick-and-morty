@@ -4,16 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_challenge/core/constants/dimens.dart';
 import 'package:rick_and_morty_challenge/core/injector/injector.dart';
 import 'package:rick_and_morty_challenge/features/auth/bloc/auth_bloc.dart';
-import 'package:rick_and_morty_challenge/features/homepage/views/characters_list.dart';
+import 'package:rick_and_morty_challenge/features/homepage/views/characters.dart';
 import 'package:rick_and_morty_challenge/features/sign_up/cubit/sign_up_cubit.dart';
 import 'package:rick_and_morty_challenge/features/sign_up/widgets/sign_up_form.dart';
 import 'package:rick_and_morty_challenge/l10n/l10n.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+class SignUpView extends StatelessWidget {
+  const SignUpView({super.key});
 
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const SignUpPage());
+    return MaterialPageRoute<void>(builder: (_) => const SignUpView());
   }
 
   @override
@@ -23,7 +23,7 @@ class SignUpPage extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           authenticated: () =>
-              Navigator.of(context).push<void>(CharactersList.route()),
+              Navigator.of(context).push<void>(CharactersView.route()),
         );
       },
       child: Scaffold(

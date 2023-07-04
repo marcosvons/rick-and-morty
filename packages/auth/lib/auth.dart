@@ -2,4 +2,5 @@
 library auth;
 
 export 'src/auth.dart';
+export 'src/failures/failures.dart';
 export 'src/repositories/repositories.dart';

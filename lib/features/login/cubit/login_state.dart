@@ -6,6 +6,6 @@ class LoginState with _$LoginState {
     @Default(Email.pure()) Email email,
     @Default(Password.pure()) Password password,
     @Default(FormzStatus.pure) FormzStatus status,
-    Failure? failure,
+    AuthFailure? failure,
   }) = _LoginState;
 }

@@ -1,4 +1,4 @@
-import 'package:dio/lib.dart';
+import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -6,7 +6,7 @@ import 'package:rick_and_morty_challenge/core/constants/dimens.dart';
 import 'package:rick_and_morty_challenge/core/constants/string_constants.dart';
 import 'package:rick_and_morty_challenge/core/theme/app_theme.dart';
 import 'package:rick_and_morty_challenge/features/auth/bloc/auth_bloc.dart';
-import 'package:rick_and_morty_challenge/features/homepage/views/characters_list.dart';
+import 'package:rick_and_morty_challenge/features/homepage/views/characters.dart';
 import 'package:rick_and_morty_challenge/features/login/cubit/login_cubit.dart';
 import 'package:rick_and_morty_challenge/features/sign_up/views/sign_up.dart';
 import 'package:rick_and_morty_challenge/l10n/l10n.dart';
@@ -25,7 +25,7 @@ class LoginBody extends StatelessWidget {
           listener: (context, state) {
             state.whenOrNull(
               authenticated: () => Navigator.of(context).push<void>(
-                CharactersList.route(),
+                CharactersView.route(),
               ),
             );
           },
@@ -38,10 +38,10 @@ class LoginBody extends StatelessWidget {
               ).showSnackBar(
                 SnackBar(
                   content: Text(
-                    state.failure == const Failure.userNotFoundError()
+                    state.failure == const AuthFailure.userNotFoundError()
                         ? l10n.userNotFoundError
                         : state.failure ==
-                                const Failure.invalidCredentialsError()
+                                const AuthFailure.invalidCredentialsError()
                             ? l10n.invalidCredentialsError
                             : l10n.unknownError,
                     textAlign: TextAlign.center,
@@ -124,7 +124,7 @@ class LoginBody extends StatelessWidget {
                           Text(l10n.createAccount),
                           GestureDetector(
                             onTap: () => Navigator.of(context).push<void>(
-                              SignUpPage.route(),
+                              SignUpView.route(),
                             ),
                             child: Text(
                               l10n.signUp,

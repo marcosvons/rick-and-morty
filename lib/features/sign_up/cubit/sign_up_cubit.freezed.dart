@@ -19,7 +19,7 @@ mixin _$SignUpState {
   Email get email => throw _privateConstructorUsedError;
   Password get password => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
-  Failure? get failure => throw _privateConstructorUsedError;
+  AuthFailure? get failure => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SignUpStateCopyWith<SignUpState> get copyWith =>
@@ -33,7 +33,12 @@ abstract class $SignUpStateCopyWith<$Res> {
       _$SignUpStateCopyWithImpl<$Res, SignUpState>;
   @useResult
   $Res call(
-      {Email email, Password password, FormzStatus status, Failure? failure});
+      {Email email,
+      Password password,
+      FormzStatus status,
+      AuthFailure? failure});
+
+  $AuthFailureCopyWith<$Res>? get failure;
 }
 
 /// @nodoc
@@ -52,7 +57,7 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
     Object? email = null,
     Object? password = null,
     Object? status = null,
-    Object? failure = null,
+    Object? failure = freezed,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -67,11 +72,23 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      failure: null == failure
+      failure: freezed == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
-              as Failure?,
+              as AuthFailure?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AuthFailureCopyWith<$Res>? get failure {
+    if (_value.failure == null) {
+      return null;
+    }
+
+    return $AuthFailureCopyWith<$Res>(_value.failure!, (value) {
+      return _then(_value.copyWith(failure: value) as $Val);
+    });
   }
 }
 
@@ -83,7 +100,13 @@ abstract class _$$_InitialCopyWith<$Res> implements $SignUpStateCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {Email email, Password password, FormzStatus status, Failure? failure});
+      {Email email,
+      Password password,
+      FormzStatus status,
+      AuthFailure? failure});
+
+  @override
+  $AuthFailureCopyWith<$Res>? get failure;
 }
 
 /// @nodoc
@@ -99,7 +122,7 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? email = null,
     Object? password = null,
     Object? status = null,
-    Object? failure = null,
+    Object? failure = freezed,
   }) {
     return _then(_$_Initial(
       email: null == email
@@ -114,10 +137,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormzStatus,
-      failure: null == failure
+      failure: freezed == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
-              as Failure?,
+              as AuthFailure?,
     ));
   }
 }
@@ -141,7 +164,7 @@ class _$_Initial implements _Initial {
   @JsonKey()
   final FormzStatus status;
   @override
-  final Failure? failure;
+  final AuthFailure? failure;
 
   @override
   String toString() {
@@ -157,12 +180,12 @@ class _$_Initial implements _Initial {
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other.failure, failure));
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password, status,
-      const DeepCollectionEquality().hash(failure));
+  int get hashCode =>
+      Object.hash(runtimeType, email, password, status, failure);
 
   @JsonKey(ignore: true)
   @override
@@ -176,7 +199,7 @@ abstract class _Initial implements SignUpState {
       {final Email email,
       final Password password,
       final FormzStatus status,
-      final Failure? failure}) = _$_Initial;
+      final AuthFailure? failure}) = _$_Initial;
 
   @override
   Email get email;
@@ -185,7 +208,7 @@ abstract class _Initial implements SignUpState {
   @override
   FormzStatus get status;
   @override
-  Failure? get failure;
+  AuthFailure? get failure;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

@@ -1,17 +1,17 @@
+import 'package:auth/auth.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dio/lib.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class IAuthRepository {
-  Future<Either<Failure, Unit>> loginWithEmailAndPassword({
+  Future<Either<AuthFailure, Unit>> loginWithEmailAndPassword({
     required String email,
     required String password,
   });
-  Future<Either<Failure, Unit>> registerWithEmailAndPassword({
+  Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({
     required String email,
     required String password,
   });
-  Future<Either<Failure, Unit>> logout();
+  Future<Either<AuthFailure, Unit>> logout();
   Stream<Option<User>> get user;
 }
 
@@ -27,7 +27,7 @@ class AuthRepository implements IAuthRepository {
       });
 
   @override
-  Future<Either<Failure, Unit>> loginWithEmailAndPassword({
+  Future<Either<AuthFailure, Unit>> loginWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -38,19 +38,19 @@ class AuthRepository implements IAuthRepository {
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'user-not-found':
-          return const Left(Failure.userNotFoundError());
+          return const Left(AuthFailure.userNotFoundError());
         case 'wrong-password':
-          return const Left(Failure.invalidCredentialsError());
+          return const Left(AuthFailure.invalidCredentialsError());
         default:
-          return const Left(Failure());
+          return const Left(AuthFailure());
       }
     } catch (e) {
-      return const Left(Failure());
+      return const Left(AuthFailure());
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> registerWithEmailAndPassword({
+  Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -61,23 +61,23 @@ class AuthRepository implements IAuthRepository {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         return const Left(
-          Failure.emailAlreadyExistsError(),
+          AuthFailure.emailAlreadyExistsError(),
         );
       } else {
-        return const Left(Failure());
+        return const Left(AuthFailure());
       }
     } catch (e) {
-      return const Left(Failure());
+      return const Left(AuthFailure());
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> logout() async {
+  Future<Either<AuthFailure, Unit>> logout() async {
     try {
       await FirebaseAuth.instance.signOut();
       return const Right(unit);
     } catch (e) {
-      return const Left(Failure());
+      return const Left(AuthFailure());
     }
   }
 }

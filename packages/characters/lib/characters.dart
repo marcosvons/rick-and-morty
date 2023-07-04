@@ -1,4 +1,4 @@
 /// A Very Good Project created by Very Good CLI.
-library characters;
+library characters_package;
 
-export 'src/characters.dart';
+export 'src/src.dart';

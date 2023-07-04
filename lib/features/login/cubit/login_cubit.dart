@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:auth/auth.dart';
 import 'package:bloc/bloc.dart';
-import 'package:dio/lib.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rick_and_morty_challenge/core/validators/email.dart';
@@ -51,8 +50,12 @@ class LoginCubit extends Cubit<LoginState> {
       );
 
       successOrFailure.fold(
-        (failure) => emit(state.copyWith(
-            status: FormzStatus.submissionFailure, failure: failure)),
+        (failure) => emit(
+          state.copyWith(
+            status: FormzStatus.submissionFailure,
+            failure: failure,
+          ),
+        ),
         (success) =>
             emit(state.copyWith(status: FormzStatus.submissionSuccess)),
       );

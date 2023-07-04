@@ -19,7 +19,7 @@ mixin _$LoginState {
   Email get email => throw _privateConstructorUsedError;
   Password get password => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
-  Failure? get failure => throw _privateConstructorUsedError;
+  AuthFailure? get failure => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LoginStateCopyWith<LoginState> get copyWith =>
@@ -33,9 +33,12 @@ abstract class $LoginStateCopyWith<$Res> {
       _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
   $Res call(
-      {Email email, Password password, FormzStatus status, Failure? failure});
+      {Email email,
+      Password password,
+      FormzStatus status,
+      AuthFailure? failure});
 
-  $FailureCopyWith<$Res>? get failure;
+  $AuthFailureCopyWith<$Res>? get failure;
 }
 
 /// @nodoc
@@ -72,18 +75,18 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
       failure: freezed == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
-              as Failure?,
+              as AuthFailure?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $FailureCopyWith<$Res>? get failure {
+  $AuthFailureCopyWith<$Res>? get failure {
     if (_value.failure == null) {
       return null;
     }
 
-    return $FailureCopyWith<$Res>(_value.failure!, (value) {
+    return $AuthFailureCopyWith<$Res>(_value.failure!, (value) {
       return _then(_value.copyWith(failure: value) as $Val);
     });
   }
@@ -98,10 +101,13 @@ abstract class _$$_LoginStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Email email, Password password, FormzStatus status, Failure? failure});
+      {Email email,
+      Password password,
+      FormzStatus status,
+      AuthFailure? failure});
 
   @override
-  $FailureCopyWith<$Res>? get failure;
+  $AuthFailureCopyWith<$Res>? get failure;
 }
 
 /// @nodoc
@@ -136,7 +142,7 @@ class __$$_LoginStateCopyWithImpl<$Res>
       failure: freezed == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
-              as Failure?,
+              as AuthFailure?,
     ));
   }
 }
@@ -160,7 +166,7 @@ class _$_LoginState implements _LoginState {
   @JsonKey()
   final FormzStatus status;
   @override
-  final Failure? failure;
+  final AuthFailure? failure;
 
   @override
   String toString() {
@@ -195,7 +201,7 @@ abstract class _LoginState implements LoginState {
       {final Email email,
       final Password password,
       final FormzStatus status,
-      final Failure? failure}) = _$_LoginState;
+      final AuthFailure? failure}) = _$_LoginState;
 
   @override
   Email get email;
@@ -204,7 +210,7 @@ abstract class _LoginState implements LoginState {
   @override
   FormzStatus get status;
   @override
-  Failure? get failure;
+  AuthFailure? get failure;
   @override
   @JsonKey(ignore: true)
   _$$_LoginStateCopyWith<_$_LoginState> get copyWith =>

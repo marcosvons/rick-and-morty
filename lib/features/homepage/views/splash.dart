@@ -6,8 +6,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:rick_and_morty_challenge/core/constants/dimens.dart';
 import 'package:rick_and_morty_challenge/core/constants/string_constants.dart';
 import 'package:rick_and_morty_challenge/features/auth/bloc/auth_bloc.dart';
-import 'package:rick_and_morty_challenge/features/homepage/views/characters_list.dart';
-import 'package:rick_and_morty_challenge/features/login/views/login_page.dart';
+import 'package:rick_and_morty_challenge/features/homepage/views/characters.dart';
+import 'package:rick_and_morty_challenge/features/login/views/login.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -21,8 +21,8 @@ class SplashScreen extends StatelessWidget {
             AssetConstants.mortySplashAnimation,
           ),
           nextScreen: state.when(
-            authenticated: CharactersList.new,
-            unauthenticated: LoginPage.new,
+            authenticated: CharactersView.new,
+            unauthenticated: LoginView.new,
           ),
           backgroundColor: Theme.of(context).canvasColor,
           splashIconSize: MediaQuery.of(context).size.width * Multipliers.x5,

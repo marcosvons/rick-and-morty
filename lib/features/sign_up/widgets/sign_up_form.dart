@@ -1,11 +1,11 @@
-import 'package:dio/lib.dart';
+import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:rick_and_morty_challenge/core/constants/dimens.dart';
 import 'package:rick_and_morty_challenge/core/constants/string_constants.dart';
 import 'package:rick_and_morty_challenge/core/theme/app_theme.dart';
-import 'package:rick_and_morty_challenge/features/login/views/login_page.dart';
+import 'package:rick_and_morty_challenge/features/login/views/login.dart';
 import 'package:rick_and_morty_challenge/features/sign_up/cubit/sign_up_cubit.dart';
 import 'package:rick_and_morty_challenge/l10n/l10n.dart';
 
@@ -26,7 +26,7 @@ class SignUpForm extends StatelessWidget {
           ).showSnackBar(
             SnackBar(
               content: Text(
-                state.failure == const Failure.emailAlreadyExistsError()
+                state.failure == const AuthFailure.emailAlreadyExistsError()
                     ? l10n.emailAlreadyExistsError
                     : l10n.unknownError,
                 style: TextStyle(color: theme.errorColor),
@@ -119,7 +119,7 @@ class SignUpForm extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
-                          Navigator.of(context).push<void>(LoginPage.route());
+                          Navigator.of(context).push<void>(LoginView.route());
                         },
                       ),
                     ],

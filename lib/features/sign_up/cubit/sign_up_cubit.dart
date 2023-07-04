@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:auth/auth.dart';
 import 'package:bloc/bloc.dart';
-import 'package:dio/lib.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rick_and_morty_challenge/core/validators/email.dart';
