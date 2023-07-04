@@ -18,6 +18,16 @@ class LocationDto with _$LocationDto {
     required String created,
   }) = _LocationDto;
 
+  factory LocationDto.fromModel(Location location) => LocationDto(
+        id: location.id,
+        name: location.name,
+        type: location.type,
+        dimension: location.dimension,
+        residents: [],
+        url: location.url,
+        created: location.created.toIso8601String(),
+      );
+
   const LocationDto._();
 
   factory LocationDto.fromJson(Map<String, dynamic> json) =>

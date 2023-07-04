@@ -4,15 +4,12 @@ import 'dart:convert';
 
 import 'package:characters_package/characters.dart';
 import 'package:core/core.dart';
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 abstract class ICharactersService {
   Future<List<CharacterDto>> getCharacters({required int page});
   Future<List<LocationDto>> getLocations({required List<String> locationIds});
   Future<List<EpisodeDto>> getEpisodes({required List<String> episodesId});
-  Future<Unit> setCharacterAsFavorite({required Character character});
-  Future<Unit> removeCharacterFromFavorites({required int characterId});
 }
 
 class CharactersService implements ICharactersService {
@@ -49,18 +46,6 @@ class CharactersService implements ICharactersService {
     } catch (e) {
       throw JsonDeserializationException();
     }
-  }
-
-  @override
-  Future<Unit> removeCharacterFromFavorites({required int characterId}) {
-    // TODO: implement removeCharacterFromFavorites
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Unit> setCharacterAsFavorite({required Character character}) {
-    // TODO: implement setCharacterAsFavorite
-    throw UnimplementedError();
   }
 
   @override

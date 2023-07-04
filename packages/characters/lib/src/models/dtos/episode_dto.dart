@@ -8,6 +8,16 @@ part 'episode_dto.g.dart';
 
 @freezed
 class EpisodeDto with _$EpisodeDto {
+  //FromModel
+  factory EpisodeDto.fromModel(Episode episode) => EpisodeDto(
+        id: episode.id,
+        name: episode.name,
+        airDate: episode.airDate,
+        episode: episode.episode,
+        url: episode.url,
+        created: episode.created.toIso8601String(),
+        characters: [],
+      );
   const factory EpisodeDto({
     required int id,
     required String name,

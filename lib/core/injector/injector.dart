@@ -2,11 +2,16 @@ import 'package:auth/auth.dart';
 import 'package:characters_package/characters.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:rick_and_morty_challenge/core/core.dart';
 
 GetIt getIt = GetIt.instance;
 
-void initDependencies() {
+Future<void> initDependencies() async {
+  final hiveBoxes = HiveBoxes();
+  await hiveBoxes.initBoxes();
+
   getIt
+    ..registerLazySingleton(() => hiveBoxes)
     ..registerLazySingleton<IAuthRepository>(AuthRepository.new)
     ..registerLazySingleton<ICharactersRepository>(
       () => CharactersRepository(

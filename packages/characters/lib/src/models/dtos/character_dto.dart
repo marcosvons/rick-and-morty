@@ -22,6 +22,20 @@ class CharacterDto with _$CharacterDto {
     required String url,
     required String created,
   }) = _CharacterDto;
+  factory CharacterDto.fromModel(Character character) => CharacterDto(
+        id: character.id,
+        name: character.name,
+        status: character.status,
+        species: character.species,
+        type: character.type,
+        gender: character.gender,
+        origin: {},
+        location: {},
+        image: character.image,
+        episode: [],
+        url: character.url,
+        created: character.created.toIso8601String(),
+      );
 
   const CharacterDto._();
 

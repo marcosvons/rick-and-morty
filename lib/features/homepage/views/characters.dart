@@ -1,8 +1,9 @@
 import 'package:characters_package/characters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_challenge/core/injector/injector.dart';
+import 'package:rick_and_morty_challenge/core/core.dart';
 import 'package:rick_and_morty_challenge/features/auth/bloc/auth_bloc.dart';
+import 'package:rick_and_morty_challenge/features/favorites/favorites.dart';
 import 'package:rick_and_morty_challenge/features/homepage/bloc/characters_bloc.dart';
 import 'package:rick_and_morty_challenge/features/homepage/widgets/characters_list.dart';
 import 'package:rick_and_morty_challenge/features/login/views/login.dart';
@@ -26,10 +27,18 @@ class CharactersView extends StatelessWidget {
           ),
         );
       },
-      child: BlocProvider<CharactersBloc>(
-        create: (context) => CharactersBloc(
-          charactersRepository: getIt<ICharactersRepository>(),
-        )..add(const CharactersEvent.getCharacters()),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<CharactersBloc>(
+            create: (context) => CharactersBloc(
+              charactersRepository: getIt<ICharactersRepository>(),
+            )..add(const CharactersEvent.getCharacters()),
+          ),
+          BlocProvider<FavoritesBloc>(
+            create: (context) =>
+                FavoritesBloc(box: getIt<HiveBoxes>().favoritesBox),
+          ),
+        ],
         child: const CharactersList(),
       ),
     );

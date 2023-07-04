@@ -1,22 +1,29 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:characters_package/characters.dart';
+import 'package:characters_package/src/service/characters_local_data_source.dart';
 import 'package:core/core.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class ICharactersRepository {
   Future<Either<Failure, List<Character>>> getCharacters({required int page});
-  Either<Failure, Unit> setCharacterAsFavorite({required Character character});
-  Either<Failure, Unit> removeCharacterFromFavorites({
+  Future<Either<Failure, Unit>> setCharacterAsFavorite({
+    required Character character,
+  });
+  Future<Either<Failure, Unit>> removeCharacterFromFavorites({
     required int characterId,
   });
 }
 
 class CharactersRepository implements ICharactersRepository {
-  CharactersRepository({required ICharactersService charactersService})
-      : _charactersService = charactersService;
+  CharactersRepository({
+    required ICharactersService charactersService,
+    required ICharactersLocalDataSource charactersLocalDataSource,
+  })  : _charactersService = charactersService,
+        _charactersLocalDataSource = charactersLocalDataSource;
 
   final ICharactersService _charactersService;
+  final ICharactersLocalDataSource _charactersLocalDataSource;
 
   @override
   Future<Either<Failure, List<Character>>> getCharacters({
@@ -95,16 +102,28 @@ class CharactersRepository implements ICharactersRepository {
   }
 
   @override
-  Either<Failure, Unit> removeCharacterFromFavorites({
+  Future<Either<Failure, Unit>> removeCharacterFromFavorites({
     required int characterId,
-  }) {
-    // TODO: implement removeCharacterFromFavorites
-    throw UnimplementedError();
+  }) async {
+    try {
+      await _charactersLocalDataSource
+          .removeCharacterFromFavorites(characterId);
+      return const Right(unit);
+    } catch (e) {
+      return const Left(Failure.cache());
+    }
   }
 
   @override
-  Either<Failure, Unit> setCharacterAsFavorite({required Character character}) {
-    // TODO: implement setCharacterAsFavorite
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> setCharacterAsFavorite({
+    required Character character,
+  }) async {
+    try {
+      await _charactersLocalDataSource
+          .addCharacterToFavorites(CharacterDto.fromModel(character));
+      return const Right(unit);
+    } catch (e) {
+      return const Left(Failure.cache());
+    }
   }
 }
