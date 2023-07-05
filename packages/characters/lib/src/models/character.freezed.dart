@@ -266,7 +266,7 @@ class __$$_CharacterCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Character implements _Character {
+class _$_Character extends _Character {
   const _$_Character(
       {required this.id,
       required this.name,
@@ -280,7 +280,8 @@ class _$_Character implements _Character {
       required final List<Episode> episode,
       required this.url,
       required this.created})
-      : _episode = episode;
+      : _episode = episode,
+        super._();
 
   @override
   final int id;
@@ -317,42 +318,6 @@ class _$_Character implements _Character {
     return 'Character(id: $id, name: $name, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episode: $episode, url: $url, created: $created)';
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Character &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.species, species) || other.species == species) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.gender, gender) || other.gender == gender) &&
-            (identical(other.origin, origin) || other.origin == origin) &&
-            (identical(other.location, location) ||
-                other.location == location) &&
-            (identical(other.image, image) || other.image == image) &&
-            const DeepCollectionEquality().equals(other._episode, _episode) &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.created, created) || other.created == created));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      status,
-      species,
-      type,
-      gender,
-      origin,
-      location,
-      image,
-      const DeepCollectionEquality().hash(_episode),
-      url,
-      created);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -360,7 +325,7 @@ class _$_Character implements _Character {
       __$$_CharacterCopyWithImpl<_$_Character>(this, _$identity);
 }
 
-abstract class _Character implements Character {
+abstract class _Character extends Character {
   const factory _Character(
       {required final int id,
       required final String name,
@@ -374,6 +339,7 @@ abstract class _Character implements Character {
       required final List<Episode> episode,
       required final String url,
       required final DateTime created}) = _$_Character;
+  const _Character._() : super._();
 
   @override
   int get id;

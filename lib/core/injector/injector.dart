@@ -16,7 +16,11 @@ Future<void> initDependencies() async {
     ..registerLazySingleton<ICharactersRepository>(
       () => CharactersRepository(
         charactersService: getIt<ICharactersService>(),
+        charactersLocalDataSource: getIt<ICharactersLocalDataSource>(),
       ),
+    )
+    ..registerLazySingleton<ICharactersLocalDataSource>(
+      () => CharactersLocalDataSource(box: hiveBoxes.favoritesBox),
     )
     ..registerLazySingleton<Dio>(
       () => Dio(

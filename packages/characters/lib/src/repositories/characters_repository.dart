@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:characters_package/characters.dart';
-import 'package:characters_package/src/service/characters_local_data_source.dart';
 import 'package:core/core.dart';
 import 'package:dartz/dartz.dart';
 
@@ -13,6 +12,7 @@ abstract class ICharactersRepository {
   Future<Either<Failure, Unit>> removeCharacterFromFavorites({
     required int characterId,
   });
+  Either<Failure, List<Character>> getFavoriteCharacters();
 }
 
 class CharactersRepository implements ICharactersRepository {
@@ -122,6 +122,20 @@ class CharactersRepository implements ICharactersRepository {
       await _charactersLocalDataSource
           .addCharacterToFavorites(CharacterDto.fromModel(character));
       return const Right(unit);
+    } catch (e) {
+      return const Left(Failure.cache());
+    }
+  }
+
+  @override
+  Either<Failure, List<Character>> getFavoriteCharacters() {
+    try {
+      return Right(
+        _charactersLocalDataSource
+            .getFavoriteCharacters()
+            .map((e) => e.toModel(episodes: []))
+            .toList(),
+      );
     } catch (e) {
       return const Left(Failure.cache());
     }

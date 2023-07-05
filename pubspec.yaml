@@ -54,7 +54,7 @@ flutter:
   assets:
     - assets/images/
     - assets/animations/
-  # fonts:
-  #   - family: 
-  #     fonts: 
-  #       - asset: assets/fonts/Roboto-Regular.ttf
+  fonts:
+    - family: PTSans
+      fonts: 
+        - asset: assets/fonts/PT_Sans/PTSans-Regular.ttf

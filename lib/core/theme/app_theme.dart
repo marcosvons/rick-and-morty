@@ -23,9 +23,9 @@ final lightThemeData = ThemeData.light().copyWith(
         contentTextStyle: TextStyle(color: ThemeData.dark().errorColor),
       ),
   primaryColor: Palette.primaryColor,
-  textTheme: ThemeData.dark()
-      .textTheme
-      .copyWith(button: const TextStyle(color: Palette.fontColor)),
+  textTheme: ThemeData.dark().textTheme.copyWith(
+        button: const TextStyle(color: Palette.fontColor, fontFamily: 'PTSans'),
+      ),
 );
 
 final darkThemeData = ThemeData.dark().copyWith(
@@ -44,7 +44,7 @@ final darkThemeData = ThemeData.dark().copyWith(
         contentTextStyle: TextStyle(color: ThemeData.dark().errorColor),
       ),
   primaryColor: Palette.primaryColor,
-  textTheme: ThemeData.dark()
-      .textTheme
-      .copyWith(button: const TextStyle(color: Palette.fontColor)),
+  textTheme: ThemeData.dark().textTheme.copyWith(
+        button: const TextStyle(color: Palette.fontColor, fontFamily: 'PTSans'),
+      ),
 );

@@ -18,22 +18,22 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$FavoritesEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() addedToFavorites,
-    required TResult Function() removedFromFavorites,
+    required TResult Function(Character character) addedToFavorites,
+    required TResult Function(Character character) removedFromFavorites,
     required TResult Function() loadFavorites,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? addedToFavorites,
-    TResult? Function()? removedFromFavorites,
+    TResult? Function(Character character)? addedToFavorites,
+    TResult? Function(Character character)? removedFromFavorites,
     TResult? Function()? loadFavorites,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? addedToFavorites,
-    TResult Function()? removedFromFavorites,
+    TResult Function(Character character)? addedToFavorites,
+    TResult Function(Character character)? removedFromFavorites,
     TResult Function()? loadFavorites,
     required TResult orElse(),
   }) =>
@@ -85,6 +85,10 @@ abstract class _$$_AddedToFavoritesCopyWith<$Res> {
   factory _$$_AddedToFavoritesCopyWith(
           _$_AddedToFavorites value, $Res Function(_$_AddedToFavorites) then) =
       __$$_AddedToFavoritesCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Character character});
+
+  $CharacterCopyWith<$Res> get character;
 }
 
 /// @nodoc
@@ -94,57 +98,90 @@ class __$$_AddedToFavoritesCopyWithImpl<$Res>
   __$$_AddedToFavoritesCopyWithImpl(
       _$_AddedToFavorites _value, $Res Function(_$_AddedToFavorites) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? character = null,
+  }) {
+    return _then(_$_AddedToFavorites(
+      character: null == character
+          ? _value.character
+          : character // ignore: cast_nullable_to_non_nullable
+              as Character,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CharacterCopyWith<$Res> get character {
+    return $CharacterCopyWith<$Res>(_value.character, (value) {
+      return _then(_value.copyWith(character: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$_AddedToFavorites implements _AddedToFavorites {
-  const _$_AddedToFavorites();
+  const _$_AddedToFavorites({required this.character});
+
+  @override
+  final Character character;
 
   @override
   String toString() {
-    return 'FavoritesEvent.addedToFavorites()';
+    return 'FavoritesEvent.addedToFavorites(character: $character)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_AddedToFavorites);
+        (other.runtimeType == runtimeType &&
+            other is _$_AddedToFavorites &&
+            (identical(other.character, character) ||
+                other.character == character));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, character);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AddedToFavoritesCopyWith<_$_AddedToFavorites> get copyWith =>
+      __$$_AddedToFavoritesCopyWithImpl<_$_AddedToFavorites>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() addedToFavorites,
-    required TResult Function() removedFromFavorites,
+    required TResult Function(Character character) addedToFavorites,
+    required TResult Function(Character character) removedFromFavorites,
     required TResult Function() loadFavorites,
   }) {
-    return addedToFavorites();
+    return addedToFavorites(character);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? addedToFavorites,
-    TResult? Function()? removedFromFavorites,
+    TResult? Function(Character character)? addedToFavorites,
+    TResult? Function(Character character)? removedFromFavorites,
     TResult? Function()? loadFavorites,
   }) {
-    return addedToFavorites?.call();
+    return addedToFavorites?.call(character);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? addedToFavorites,
-    TResult Function()? removedFromFavorites,
+    TResult Function(Character character)? addedToFavorites,
+    TResult Function(Character character)? removedFromFavorites,
     TResult Function()? loadFavorites,
     required TResult orElse(),
   }) {
     if (addedToFavorites != null) {
-      return addedToFavorites();
+      return addedToFavorites(character);
     }
     return orElse();
   }
@@ -185,7 +222,13 @@ class _$_AddedToFavorites implements _AddedToFavorites {
 }
 
 abstract class _AddedToFavorites implements FavoritesEvent {
-  const factory _AddedToFavorites() = _$_AddedToFavorites;
+  const factory _AddedToFavorites({required final Character character}) =
+      _$_AddedToFavorites;
+
+  Character get character;
+  @JsonKey(ignore: true)
+  _$$_AddedToFavoritesCopyWith<_$_AddedToFavorites> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -193,6 +236,10 @@ abstract class _$$_RemovedFromFavoritesCopyWith<$Res> {
   factory _$$_RemovedFromFavoritesCopyWith(_$_RemovedFromFavorites value,
           $Res Function(_$_RemovedFromFavorites) then) =
       __$$_RemovedFromFavoritesCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Character character});
+
+  $CharacterCopyWith<$Res> get character;
 }
 
 /// @nodoc
@@ -202,57 +249,91 @@ class __$$_RemovedFromFavoritesCopyWithImpl<$Res>
   __$$_RemovedFromFavoritesCopyWithImpl(_$_RemovedFromFavorites _value,
       $Res Function(_$_RemovedFromFavorites) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? character = null,
+  }) {
+    return _then(_$_RemovedFromFavorites(
+      null == character
+          ? _value.character
+          : character // ignore: cast_nullable_to_non_nullable
+              as Character,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CharacterCopyWith<$Res> get character {
+    return $CharacterCopyWith<$Res>(_value.character, (value) {
+      return _then(_value.copyWith(character: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$_RemovedFromFavorites implements _RemovedFromFavorites {
-  const _$_RemovedFromFavorites();
+  const _$_RemovedFromFavorites(this.character);
+
+  @override
+  final Character character;
 
   @override
   String toString() {
-    return 'FavoritesEvent.removedFromFavorites()';
+    return 'FavoritesEvent.removedFromFavorites(character: $character)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_RemovedFromFavorites);
+        (other.runtimeType == runtimeType &&
+            other is _$_RemovedFromFavorites &&
+            (identical(other.character, character) ||
+                other.character == character));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, character);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RemovedFromFavoritesCopyWith<_$_RemovedFromFavorites> get copyWith =>
+      __$$_RemovedFromFavoritesCopyWithImpl<_$_RemovedFromFavorites>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() addedToFavorites,
-    required TResult Function() removedFromFavorites,
+    required TResult Function(Character character) addedToFavorites,
+    required TResult Function(Character character) removedFromFavorites,
     required TResult Function() loadFavorites,
   }) {
-    return removedFromFavorites();
+    return removedFromFavorites(character);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? addedToFavorites,
-    TResult? Function()? removedFromFavorites,
+    TResult? Function(Character character)? addedToFavorites,
+    TResult? Function(Character character)? removedFromFavorites,
     TResult? Function()? loadFavorites,
   }) {
-    return removedFromFavorites?.call();
+    return removedFromFavorites?.call(character);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? addedToFavorites,
-    TResult Function()? removedFromFavorites,
+    TResult Function(Character character)? addedToFavorites,
+    TResult Function(Character character)? removedFromFavorites,
     TResult Function()? loadFavorites,
     required TResult orElse(),
   }) {
     if (removedFromFavorites != null) {
-      return removedFromFavorites();
+      return removedFromFavorites(character);
     }
     return orElse();
   }
@@ -293,7 +374,13 @@ class _$_RemovedFromFavorites implements _RemovedFromFavorites {
 }
 
 abstract class _RemovedFromFavorites implements FavoritesEvent {
-  const factory _RemovedFromFavorites() = _$_RemovedFromFavorites;
+  const factory _RemovedFromFavorites(final Character character) =
+      _$_RemovedFromFavorites;
+
+  Character get character;
+  @JsonKey(ignore: true)
+  _$$_RemovedFromFavoritesCopyWith<_$_RemovedFromFavorites> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -334,8 +421,8 @@ class _$_LoadFavorites implements _LoadFavorites {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() addedToFavorites,
-    required TResult Function() removedFromFavorites,
+    required TResult Function(Character character) addedToFavorites,
+    required TResult Function(Character character) removedFromFavorites,
     required TResult Function() loadFavorites,
   }) {
     return loadFavorites();
@@ -344,8 +431,8 @@ class _$_LoadFavorites implements _LoadFavorites {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? addedToFavorites,
-    TResult? Function()? removedFromFavorites,
+    TResult? Function(Character character)? addedToFavorites,
+    TResult? Function(Character character)? removedFromFavorites,
     TResult? Function()? loadFavorites,
   }) {
     return loadFavorites?.call();
@@ -354,8 +441,8 @@ class _$_LoadFavorites implements _LoadFavorites {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? addedToFavorites,
-    TResult Function()? removedFromFavorites,
+    TResult Function(Character character)? addedToFavorites,
+    TResult Function(Character character)? removedFromFavorites,
     TResult Function()? loadFavorites,
     required TResult orElse(),
   }) {

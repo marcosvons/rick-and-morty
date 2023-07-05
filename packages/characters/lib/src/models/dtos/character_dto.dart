@@ -22,6 +22,7 @@ class CharacterDto with _$CharacterDto {
     required String url,
     required String created,
   }) = _CharacterDto;
+
   factory CharacterDto.fromModel(Character character) => CharacterDto(
         id: character.id,
         name: character.name,
@@ -29,10 +30,14 @@ class CharacterDto with _$CharacterDto {
         species: character.species,
         type: character.type,
         gender: character.gender,
-        origin: {},
-        location: {},
+        origin: {
+          character.origin?.name ?? '': character.origin?.url ?? '',
+        },
+        location: {
+          character.location?.name ?? '': character.location?.url ?? '',
+        },
         image: character.image,
-        episode: [],
+        episode: character.episode.map((e) => e.url).toList(),
         url: character.url,
         created: character.created.toIso8601String(),
       );
