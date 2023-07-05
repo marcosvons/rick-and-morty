@@ -68,6 +68,14 @@ class LoginBody extends StatelessWidget {
                         child: TextFormField(
                           decoration: InputDecoration(
                             labelText: l10n.email,
+                            focusColor: theme.primaryColor,
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: theme.primaryColor,
+                              ),
+                            ),
+                            floatingLabelStyle: theme.textTheme.bodyText1!
+                                .copyWith(color: theme.primaryColor),
                           ),
                           onChanged: (value) =>
                               context.read<LoginCubit>().emailChanged(value),
@@ -78,44 +86,56 @@ class LoginBody extends StatelessWidget {
                         child: TextFormField(
                           decoration: InputDecoration(
                             labelText: l10n.password,
+                            focusColor: theme.primaryColor,
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: theme.primaryColor,
+                              ),
+                            ),
+                            floatingLabelStyle: theme.textTheme.bodyText1!
+                                .copyWith(color: theme.primaryColor),
                           ),
                           obscureText: true,
                           onChanged: (value) =>
                               context.read<LoginCubit>().passwordChanged(value),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: Spacers.large,
-                        ),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: (state.password.value != '' &&
-                                    state.email.value != '')
-                                ? theme.primaryColor
-                                : Palette.disabledButtonColor,
-                            fixedSize: Size(
-                              MediaQuery.of(context).size.width *
-                                  Multipliers.x35,
-                              MediaQuery.of(context).size.height *
-                                  Multipliers.x05,
-                            ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.115,
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: Spacers.large,
                           ),
-                          child: Text(
-                            l10n.login,
-                            style: TextStyle(
-                              color: (state.password.value != '' &&
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: (state.password.value != '' &&
                                       state.email.value != '')
-                                  ? theme.textTheme.button?.color
-                                  : theme.disabledColor,
+                                  ? theme.primaryColor
+                                  : Palette.disabledButtonColor,
+                              fixedSize: Size(
+                                MediaQuery.of(context).size.width *
+                                    Multipliers.x35,
+                                MediaQuery.of(context).size.height *
+                                    Multipliers.x05,
+                              ),
                             ),
+                            child: Text(
+                              l10n.login,
+                              style: TextStyle(
+                                color: (state.password.value != '' &&
+                                        state.email.value != '')
+                                    ? theme.textTheme.button?.color
+                                    : theme.disabledColor,
+                              ),
+                            ),
+                            onPressed: () {
+                              if (state.password.value != '' &&
+                                  state.email.value != '') {
+                                context.read<LoginCubit>().loginSubmission();
+                              }
+                            },
                           ),
-                          onPressed: () {
-                            if (state.password.value != '' &&
-                                state.email.value != '') {
-                              context.read<LoginCubit>().loginSubmission();
-                            }
-                          },
                         ),
                       ),
                       Row(

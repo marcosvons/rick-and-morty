@@ -48,6 +48,14 @@ class SignUpForm extends StatelessWidget {
                     child: TextFormField(
                       decoration: InputDecoration(
                         labelText: l10n.email,
+                        focusColor: theme.primaryColor,
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: theme.primaryColor,
+                          ),
+                        ),
+                        floatingLabelStyle: theme.textTheme.bodyText1!
+                            .copyWith(color: theme.primaryColor),
                         errorText: !state.email.pure
                             ? state.email.error?.when(
                                 empty: () => l10n.emptyEmail,
@@ -63,6 +71,14 @@ class SignUpForm extends StatelessWidget {
                     padding: const EdgeInsets.all(Spacers.small),
                     child: TextFormField(
                       decoration: InputDecoration(
+                        focusColor: theme.primaryColor,
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: theme.primaryColor,
+                          ),
+                        ),
+                        floatingLabelStyle: theme.textTheme.bodyText1!
+                            .copyWith(color: theme.primaryColor),
                         labelText: l10n.password,
                         errorText: !state.password.pure
                             ? state.password.error?.when(
@@ -77,30 +93,35 @@ class SignUpForm extends StatelessWidget {
                           context.read<SignUpCubit>().passwordChanged(value),
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: Spacers.large),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (state.status == FormzStatus.valid) {
-                          context.read<SignUpCubit>().signUpSubmission();
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: state.status == FormzStatus.valid
-                            ? theme.primaryColor
-                            : Palette.disabledButtonColor,
-                        fixedSize: Size(
-                          MediaQuery.of(context).size.width * Multipliers.x35,
-                          MediaQuery.of(context).size.height * Multipliers.x05,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.115,
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.symmetric(vertical: Spacers.large),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (state.status == FormzStatus.valid) {
+                            context.read<SignUpCubit>().signUpSubmission();
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: state.status == FormzStatus.valid
+                              ? theme.primaryColor
+                              : Palette.disabledButtonColor,
+                          fixedSize: Size(
+                            MediaQuery.of(context).size.width * Multipliers.x35,
+                            MediaQuery.of(context).size.height *
+                                Multipliers.x05,
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        l10n.signUp,
-                        style: TextStyle(
-                          color: state.status == FormzStatus.valid
-                              ? theme.textTheme.button?.color
-                              : theme.disabledColor,
+                        child: Text(
+                          l10n.signUp,
+                          style: TextStyle(
+                            color: state.status == FormzStatus.valid
+                                ? theme.textTheme.button?.color
+                                : theme.disabledColor,
+                          ),
                         ),
                       ),
                     ),

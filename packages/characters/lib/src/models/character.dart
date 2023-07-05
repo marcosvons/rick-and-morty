@@ -21,4 +21,13 @@ class Character with _$Character {
     required String url,
     required DateTime created,
   }) = _Character;
+
+  const Character._();
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Character && id == other.id;
+  }
 }

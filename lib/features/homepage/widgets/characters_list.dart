@@ -15,8 +15,12 @@ class CharactersList extends StatelessWidget {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        // automaticallyImplyLeading: false,
-        title: const Text('Characters'),
+        title: const Text(
+          'Characters',
+          style: TextStyle(
+            fontFamily: 'PTSans',
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -48,18 +52,33 @@ class CharactersList extends StatelessWidget {
                 'Characters',
                 style: TextStyle(
                   fontSize: Spacers.medium * 1.25,
+                  fontFamily: 'PTSans',
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push<void>(
+                  CharactersView.route(),
+                );
+              },
             ),
             ListTile(
               title: const Text(
                 'Favorites',
                 style: TextStyle(
                   fontSize: Spacers.medium * 1.25,
+                  fontFamily: 'PTSans',
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute<dynamic>(
+                    builder: (_) => BlocProvider.value(
+                      value: BlocProvider.of<FavoritesBloc>(context),
+                      child: const FavoritesView(),
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -67,11 +86,15 @@ class CharactersList extends StatelessWidget {
       body: BlocBuilder<CharactersBloc, CharactersState>(
         builder: (context, state) {
           return state.when(
-            initial: () => const Center(
-              child: CircularProgressIndicator(),
+            initial: () => Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
+              ),
             ),
-            loading: () => const Center(
-              child: CircularProgressIndicator(),
+            loading: () => Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
+              ),
             ),
             loaded: (characters, page, hasReachedMax) {
               return ListView.builder(
@@ -79,11 +102,18 @@ class CharactersList extends StatelessWidget {
                 itemCount: characters.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      CharacterDetail.route(
-                        character: characters[index],
-                      ),
-                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<dynamic>(
+                          builder: (_) => BlocProvider.value(
+                            value: BlocProvider.of<FavoritesBloc>(context),
+                            child: CharacterDetail(
+                              character: characters[index],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                     child: Container(
                       margin: const EdgeInsets.all(Spacers.medium),
                       height: MediaQuery.of(context).size.height * 0.2,
@@ -124,7 +154,9 @@ class CharactersList extends StatelessWidget {
                                 children: [
                                   AutoSizeText(
                                     characters[index].name,
-                                    style: theme.textTheme.headline6,
+                                    style: theme.textTheme.headline6!.copyWith(
+                                      fontFamily: 'PTSans',
+                                    ),
                                     maxLines: 3,
                                   ),
                                   Row(
@@ -148,7 +180,10 @@ class CharactersList extends StatelessWidget {
                                       ),
                                       Text(
                                         '${characters[index].status} - ${characters[index].species}',
-                                        style: theme.textTheme.bodyText2,
+                                        style:
+                                            theme.textTheme.bodyText2!.copyWith(
+                                          fontFamily: 'PTSans',
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -156,16 +191,21 @@ class CharactersList extends StatelessWidget {
                                     'Last known location:',
                                     style: TextStyle(
                                       color: theme.disabledColor,
+                                      fontFamily: 'PTSans',
                                     ),
                                   ),
                                   Text(
                                     characters[index].location?.name ??
                                         'Unknown',
+                                    style: const TextStyle(
+                                      fontFamily: 'PTSans',
+                                    ),
                                   ),
                                   Text(
                                     'First seen in:',
                                     style: TextStyle(
                                       color: theme.disabledColor,
+                                      fontFamily: 'PTSans',
                                     ),
                                   ),
                                   Text(
@@ -174,6 +214,7 @@ class CharactersList extends StatelessWidget {
                                         : 'Unknown',
                                     style: const TextStyle(
                                       overflow: TextOverflow.ellipsis,
+                                      fontFamily: 'PTSans',
                                     ),
                                     maxLines: 2,
                                   ),

@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:characters_package/characters.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_challenge/core/core.dart';
+
+import 'package:rick_and_morty_challenge/features/features.dart';
 
 class CharacterDetail extends StatelessWidget {
   const CharacterDetail({super.key, required this.character});
@@ -20,15 +23,55 @@ class CharacterDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(character.name),
+        title: Text(
+          character.name,
+          style: const TextStyle(
+            fontFamily: 'PTSans',
+          ),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.favorite_border),
-            onPressed: () {},
+          BlocBuilder<FavoritesBloc, FavoritesState>(
+            builder: (context, state) {
+              return IconButton(
+                icon: state.maybeWhen(
+                  orElse: () => const Icon(Icons.favorite_border),
+                  loaded: (favorites) {
+                    return favorites.contains(character)
+                        ? Icon(
+                            Icons.favorite,
+                            color: Theme.of(context).primaryColor,
+                          )
+                        : const Icon(Icons.favorite_border);
+                  },
+                ),
+                onPressed: () {
+                  state.maybeWhen(
+                    orElse: () => context.read<FavoritesBloc>().add(
+                          FavoritesEvent.addedToFavorites(
+                            character: character,
+                          ),
+                        ),
+                    loaded: (favorites) {
+                      favorites.contains(character)
+                          ? context.read<FavoritesBloc>().add(
+                                FavoritesEvent.removedFromFavorites(
+                                  character,
+                                ),
+                              )
+                          : context.read<FavoritesBloc>().add(
+                                FavoritesEvent.addedToFavorites(
+                                  character: character,
+                                ),
+                              );
+                    },
+                  );
+                },
+              );
+            },
           ),
         ],
       ),
@@ -76,6 +119,7 @@ class CharacterDetail extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: Spacers.medium,
                                   fontWeight: FontWeight.w600,
+                                  fontFamily: 'PTSans',
                                 ),
                                 children: [
                                   TextSpan(
@@ -83,6 +127,7 @@ class CharacterDetail extends StatelessWidget {
                                     style: const TextStyle(
                                       fontSize: Spacers.medium,
                                       fontWeight: FontWeight.w400,
+                                      fontFamily: 'PTSans',
                                     ),
                                   )
                                 ],
@@ -96,6 +141,7 @@ class CharacterDetail extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: Spacers.medium,
                                   fontWeight: FontWeight.w600,
+                                  fontFamily: 'PTSans',
                                 ),
                                 children: [
                                   TextSpan(
@@ -103,6 +149,7 @@ class CharacterDetail extends StatelessWidget {
                                     style: const TextStyle(
                                       fontSize: Spacers.medium,
                                       fontWeight: FontWeight.w400,
+                                      fontFamily: 'PTSans',
                                     ),
                                   )
                                 ],
@@ -116,6 +163,7 @@ class CharacterDetail extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: Spacers.medium,
                                   fontWeight: FontWeight.w600,
+                                  fontFamily: 'PTSans',
                                 ),
                                 children: [
                                   TextSpan(
@@ -125,6 +173,7 @@ class CharacterDetail extends StatelessWidget {
                                     style: const TextStyle(
                                       fontSize: Spacers.medium,
                                       fontWeight: FontWeight.w400,
+                                      fontFamily: 'PTSans',
                                     ),
                                   )
                                 ],
@@ -138,6 +187,7 @@ class CharacterDetail extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: Spacers.medium,
                                   fontWeight: FontWeight.w600,
+                                  fontFamily: 'PTSans',
                                 ),
                                 children: [
                                   TextSpan(
@@ -145,6 +195,7 @@ class CharacterDetail extends StatelessWidget {
                                     style: const TextStyle(
                                       fontSize: Spacers.medium,
                                       fontWeight: FontWeight.w400,
+                                      fontFamily: 'PTSans',
                                     ),
                                   )
                                 ],
@@ -158,6 +209,7 @@ class CharacterDetail extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: Spacers.medium,
                                   fontWeight: FontWeight.w600,
+                                  fontFamily: 'PTSans',
                                 ),
                                 children: [
                                   TextSpan(
@@ -165,6 +217,7 @@ class CharacterDetail extends StatelessWidget {
                                     style: const TextStyle(
                                       fontSize: Spacers.medium,
                                       fontWeight: FontWeight.w400,
+                                      fontFamily: 'PTSans',
                                     ),
                                   )
                                 ],
@@ -178,6 +231,7 @@ class CharacterDetail extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: Spacers.medium,
                                   fontWeight: FontWeight.w600,
+                                  fontFamily: 'PTSans',
                                 ),
                                 children: [
                                   TextSpan(
@@ -185,6 +239,7 @@ class CharacterDetail extends StatelessWidget {
                                     style: const TextStyle(
                                       fontSize: Spacers.medium,
                                       fontWeight: FontWeight.w400,
+                                      fontFamily: 'PTSans',
                                     ),
                                   )
                                 ],
@@ -211,6 +266,7 @@ class CharacterDetail extends StatelessWidget {
                   fontSize: Spacers.large * 1.5,
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.w600,
+                  fontFamily: 'PTSans',
                 ),
               ),
               const SizedBox(height: Spacers.medium),
@@ -222,15 +278,30 @@ class CharacterDetail extends StatelessWidget {
                   padding: const EdgeInsets.all(Spacers.small),
                   child: ListTile(
                     tileColor: Theme.of(context).cardColor,
-                    title: Text(character.episode[index].name),
+                    title: Text(
+                      character.episode[index].name,
+                      style: const TextStyle(
+                        fontFamily: 'PTSans',
+                      ),
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(Spacers.small),
                     ),
                     subtitle: Row(
                       children: [
-                        Text(character.episode[index].episode),
+                        Text(
+                          character.episode[index].episode,
+                          style: const TextStyle(
+                            fontFamily: 'PTSans',
+                          ),
+                        ),
                         const Spacer(),
-                        Text(character.episode[index].airDate),
+                        Text(
+                          character.episode[index].airDate,
+                          style: const TextStyle(
+                            fontFamily: 'PTSans',
+                          ),
+                        ),
                       ],
                     ),
                   ),

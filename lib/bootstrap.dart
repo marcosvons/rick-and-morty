@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:rick_and_morty_challenge/core/injector/injector.dart'
     as injector;
 
@@ -36,7 +37,10 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  injector.initDependencies();
+
+  await Hive.initFlutter();
+
+  await injector.initDependencies();
 
   await runZonedGuarded(
     () async => runApp(await builder()),

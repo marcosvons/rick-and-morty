@@ -35,8 +35,9 @@ class CharactersView extends StatelessWidget {
             )..add(const CharactersEvent.getCharacters()),
           ),
           BlocProvider<FavoritesBloc>(
-            create: (context) =>
-                FavoritesBloc(box: getIt<HiveBoxes>().favoritesBox),
+            create: (context) => FavoritesBloc(
+              charactersRepository: getIt<ICharactersRepository>(),
+            )..add(const FavoritesEvent.loadFavorites()),
           ),
         ],
         child: const CharactersList(),
